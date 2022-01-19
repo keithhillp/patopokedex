@@ -79,6 +79,7 @@ export default {
                 text-align: right;
                 padding: 25px;
                 font-size: 2em;
+                line-height: 1.7em;
             }
         }
 
@@ -107,6 +108,10 @@ export default {
             justify-content: space-evenly;
             align-items: center;
             flex-wrap: wrap;
+
+            @media only screen and (max-width: 1050px) {
+                display: none;
+            }
 
             p {
                 font-size: 1.5em;

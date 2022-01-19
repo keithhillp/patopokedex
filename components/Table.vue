@@ -93,7 +93,7 @@ export default {
 
       @media only screen and (max-width: 1050px) {
         height: auto;
-        max-height: 30vh;
+        max-height: 40vh;
       }
 
       .table {
