@@ -15,7 +15,7 @@
         </b-form-group>
         <b-table class="table" :busy="isBusy" striped hover :items="data.pokemon_entries" :fields="fields" :filter="filter" sticky-header>
           <template #cell(info)="data">
-            <router-link :to="data.item.pokemon_species.name"><b-button variant="primary">Info <b-icon icon="info-circle-fill"></b-icon></b-button></router-link>
+            <router-link :to="data.item.pokemon_species.name"><b-button variant="primary">Info</b-button></router-link>
           </template>
           <template #table-busy>
             <Loading />
