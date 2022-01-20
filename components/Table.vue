@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-
 export default {
   name: 'NuxtTutorial',
   data() {
@@ -56,15 +54,24 @@ export default {
     }
   },
   methods: {
+    //Fetch API data if id in url then set to current item if not set first item to current item
     async getPokemon() {
       let response = await this.$axios.$get('https://pokeapi.co/api/v2/pokedex/5')
       this.data = response
-      this.isBusy = !this.isBusy
+      this.$store.commit('update', response)
       this.$route.params.slug == null ? this.currentItem = this.data.pokemon_entries[0].pokemon_species.name : this.currentItem = this.$route.params.slug
+      this.isBusy = !this.isBusy
     },
   },
   mounted(){
-    this.getPokemon();
+    //Check if API data is cached, if not then fetch data and cache in Vuex
+    if(this.$store.state.currentPoke == undefined) {
+      this.getPokemon();
+    } else {
+      this.data = this.$store.state.currentPoke
+      this.$route.params.slug == null ? this.currentItem = this.data.pokemon_entries[0].pokemon_species.name : this.currentItem = this.$route.params.slug
+      this.isBusy = !this.isBusy
+    }
   },
 }
 </script>
@@ -103,6 +110,7 @@ export default {
 
       tr {
         text-transform: capitalize;
+        font-size: 1.3em;
 
         button {
           font-size: 1em;

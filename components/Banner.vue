@@ -15,6 +15,7 @@ export default {
     background-color: #6dbffb;
 
     .banner__title {
+      font-size: 2.5em;
       width: fit-content;
       display: flex;
       align-items: center;

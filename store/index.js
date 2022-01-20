@@ -1,5 +1,5 @@
 export const state = () => ({
-    currentPoke: ''
+    pokeList: {}
   })
   
   export const mutations = {

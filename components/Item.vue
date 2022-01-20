@@ -7,10 +7,12 @@
             <h2 v-if="currentPokemon.id">ID:{{ currentPokemon.id }}</h2>
         </div>
         <div class="poke-card__img">
-            <img v-if="currentPokemon.sprites" :src="currentPokemon.sprites.front_default"  width="" alt="">
+            <img v-if="currentPokemon.sprites" :src="currentPokemon.sprites.front_default"  :alt="'Sprite of ' + currentPokemon.name">
         </div>
         <div class="poke-card__info">
+            <!-- slice moves array as to only show first 4 -->
             <p v-for="(item, index) in currentPokemon.moves.slice(0, 4)" :key="index">{{ item.move.name }}</p>
+            <!-- <p>HP {{ currentPokemon.stats[0].base_stat }}</p> -->
         </div>
     </div>
 </template>
@@ -35,6 +37,7 @@ export default {
         }
     },
     watch: {
+        //Call singal pokemon API on ID change
         pokeId: function () {
             this.isBusy = true;
             this.getItem();
