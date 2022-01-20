@@ -2,9 +2,9 @@
     <Loading v-if="isBusy" />
     <div v-else class="poke-card" v-bind:class="'poke-card--' + currentPokemon.types[0].type.name">
         <div class="poke-card__title">
-            <h1>{{ currentPokemon.name }}</h1>
+            <h2>{{ currentPokemon.name }}</h2>
             <p v-for="(item, index) in currentPokemon.types" :key="index">{{ item.type.name }}</p>
-            <h2 v-if="currentPokemon.id">ID:{{ currentPokemon.id }}</h2>
+            <h3 v-if="currentPokemon.id">ID:{{ currentPokemon.id }}</h3>
         </div>
         <div class="poke-card__img">
             <img v-if="currentPokemon.sprites" :src="currentPokemon.sprites.front_default"  :alt="'Sprite of ' + currentPokemon.name">
@@ -64,7 +64,7 @@ export default {
             padding: 25px;
             background-color: rgba($color: #000, $alpha: 0.4);
 
-            h1 {
+            h2 {
                 text-transform: capitalize;
                 font-size: 2.5em;
             }
@@ -76,7 +76,7 @@ export default {
                 padding: 0 5px;
             }
 
-            h2 {
+            h3 {
                 position: absolute;
                 inset: 0 0 auto auto;
                 text-align: right;
