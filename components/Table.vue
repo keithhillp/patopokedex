@@ -16,7 +16,7 @@
         <b-table class="table" :busy="isBusy" striped hover :items="data.pokemon_entries" :fields="fields" :filter="filter" sticky-header>
           <template #cell(info)="data">
             <!-- <b-button name="more info" :to="data.item.pokemon_species.name" variant="primary">Info</b-button> -->
-            <b-button @click="setId(data.item.pokemon_species.name)">Better Info</b-button>
+            <b-button variant="primary" @click="setId(data.item.pokemon_species.name)">Info</b-button>
           </template>
           <template #table-busy>
             <Loading />
