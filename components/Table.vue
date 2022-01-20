@@ -14,8 +14,10 @@
             ></b-form-input>
         </b-form-group>
         <b-table class="table" :busy="isBusy" striped hover :items="data" :fields="fields" :filter="filter" sticky-header>
+          <template #cell(url)="data">
+            {{ stripIdNum(data.item.url) }}
+          </template>
           <template #cell(info)="data">
-            <!-- <b-button name="more info" :to="data.item.pokemon_species.name" variant="primary">Info</b-button> -->
             <b-button variant="primary" @click="setId(data.item.name)">Info</b-button>
           </template>
           <template #table-busy>
@@ -35,14 +37,14 @@ export default {
       data: [],
       fields: [
         {
-          key: 'index',
+          key: 'url',
           label: '#',
           sortable: true
         },
         {
           key: 'name',
           label: 'Species name',
-            sortable: true
+          sortable: true
         },
         {
           key: 'Info',
@@ -69,6 +71,10 @@ export default {
       this.$router.push({ query: { pokemon: id } })
       this.currentItem = id
     },
+    stripIdNum(url){
+      let urlStrip = url.split('/');
+      return urlStrip.pop() || urlStrip.pop(); 
+    }
   },
   mounted(){
     this.getPokemon();
