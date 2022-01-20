@@ -13,7 +13,19 @@
               placeholder="Type to Search"
             ></b-form-input>
         </b-form-group>
-        <b-table class="table" :busy="isBusy" striped hover :items="data" :fields="fields" :filter="filter" sticky-header>
+        <b-table 
+        id="poke-table"
+        class="table" 
+        :busy="isBusy" 
+        striped hover 
+        :items="data" 
+        :fields="fields" 
+        :filter="filter" 
+        sticky-header
+        :per-page="perPage"
+        :current-page="currentPage"
+        @filtered="onFiltered"
+        >
           <template #cell(url)="data">
             {{ stripIdNum(data.item.url) }}
           </template>
@@ -24,6 +36,13 @@
             <Loading />
           </template>
         </b-table>
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"
+          aria-controls="poke-table"
+          align="fill"
+        ></b-pagination>
       </div>
     </div>
   </div>
@@ -53,27 +72,33 @@ export default {
       ],
       isBusy: true,
       currentItem: null,
-      filter: null
+      filter: null,
+      perPage: 20,
+      currentPage: 1,
+      totalRows: 0
     }
   },
   methods: {
     //Fetch API data if id in url then set to current item if not set first item to current item
     async getPokemon() {
-      //A massive get request which should have AJAX loading but was told to change after test was submitted 
       let response = await this.$axios.$get('https://pokeapi.co/api/v2/pokemon/?limit=1118')
-      console.log(response.results)
       this.data = response.results
       this.$route.query.pokemon == null ? this.currentItem = this.data[0].name : this.currentItem = this.$route.query.pokemon
+      this.totalRows = this.data.length
       this.isBusy = !this.isBusy
     },
     setId(id) {
-      console.log(id)
       this.$router.push({ query: { pokemon: id } })
       this.currentItem = id
     },
     stripIdNum(url){
       let urlStrip = url.split('/');
       return urlStrip.pop() || urlStrip.pop(); 
+    },
+    onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length
+      this.currentPage = 1
     }
   },
   mounted(){
@@ -102,11 +127,11 @@ export default {
 
     .grid__table {
       position: relative;
-      height: calc(100vh - 80px);
+      height: calc(100vh - 155px);
 
       @media only screen and (max-width: 1050px) {
         height: auto;
-        max-height: 40vh;
+        max-height: calc(50vh - 115px);
       }
 
       .table {

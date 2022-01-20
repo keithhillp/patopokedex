@@ -18,7 +18,7 @@ export default Vue.extend({
     font-family: 'Press Start 2P', cursive;
     overflow: hidden;
 
-    @media only screen and (max-width: 525px) {
+    @media only screen and (max-width: 650px) {
       font-size: 0.6rem;
     }
 
