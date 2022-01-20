@@ -57,6 +57,7 @@ export default {
   methods: {
     //Fetch API data if id in url then set to current item if not set first item to current item
     async getPokemon() {
+      //A massive get request which should have AJAX loading but was told to change after test was submitted 
       let response = await this.$axios.$get('https://pokeapi.co/api/v2/pokemon/?limit=1118')
       console.log(response.results)
       this.data = response.results
