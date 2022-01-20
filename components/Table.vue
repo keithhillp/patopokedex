@@ -15,7 +15,8 @@
         </b-form-group>
         <b-table class="table" :busy="isBusy" striped hover :items="data.pokemon_entries" :fields="fields" :filter="filter" sticky-header>
           <template #cell(info)="data">
-            <b-button name="more info" :to="data.item.pokemon_species.name" variant="primary">Info</b-button>
+            <!-- <b-button name="more info" :to="data.item.pokemon_species.name" variant="primary">Info</b-button> -->
+            <b-button @click="setId(data.item.pokemon_species.name)">Better Info</b-button>
           </template>
           <template #table-busy>
             <Loading />
@@ -59,8 +60,12 @@ export default {
       let response = await this.$axios.$get('https://pokeapi.co/api/v2/pokedex/5')
       this.data = response
       this.$store.commit('update', response)
-      this.$route.params.slug == null ? this.currentItem = this.data.pokemon_entries[0].pokemon_species.name : this.currentItem = this.$route.params.slug
+      this.$route.query.pokemon == null ? this.currentItem = this.data.pokemon_entries[0].pokemon_species.name : this.currentItem = this.$route.query.pokemon
       this.isBusy = !this.isBusy
+    },
+    setId(id) {
+      this.$router.push({ query: { pokemon: id } })
+      this.currentItem = id
     },
   },
   mounted(){
