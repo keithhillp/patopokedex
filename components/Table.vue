@@ -69,14 +69,7 @@ export default {
     },
   },
   mounted(){
-    //Check if API data is cached, if not then fetch data and cache in Vuex
-    if(this.$store.state.currentPoke == undefined) {
-      this.getPokemon();
-    } else {
-      this.data = this.$store.state.currentPoke
-      this.$route.params.slug == null ? this.currentItem = this.data.pokemon_entries[0].pokemon_species.name : this.currentItem = this.$route.params.slug
-      this.isBusy = !this.isBusy
-    }
+    this.getPokemon();
   },
 }
 </script>
