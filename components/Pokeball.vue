@@ -13,7 +13,7 @@ export default {
         position: relative;
         width: 50px;
         height: 50px;
-        background: #4d63ec;
+        background: #fff;
         border-radius: 100%;
         margin: 0 25px 0 0;
         flex-shrink: 0;
@@ -26,8 +26,8 @@ export default {
             position: absolute;
             inset: 0 0 0 0;
             margin: auto;
-            background-color: #4d63ec;
-            border: 4px solid #6dbffb
+            background-color: #fff;
+            border: 4px solid #f93f3f;
         }
 
         &::before {
@@ -37,7 +37,7 @@ export default {
             position: absolute;
             inset: 0 0 0 0;
             margin: auto;
-            background-color: #6dbffb;
+            background-color: #f93f3f;
         }
     }
 </style>

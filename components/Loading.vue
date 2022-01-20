@@ -22,7 +22,7 @@ export default {
           animation-name: spin;
           animation-duration: 1000ms;
           animation-iteration-count: infinite;
-          animation-timing-function: linear; 
+          animation-timing-function: linear;
           background: rgb(255,0,0);
           background: linear-gradient(180deg, rgba(255,0,0,1) 50%, rgba(255,255,255,1) 50%);
 

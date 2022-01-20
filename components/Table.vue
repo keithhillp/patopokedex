@@ -13,10 +13,10 @@
               placeholder="Type to Search"
             ></b-form-input>
         </b-form-group>
-        <b-table class="table" :busy="isBusy" striped hover :items="data.pokemon_entries" :fields="fields" :filter="filter" sticky-header>
+        <b-table class="table" :busy="isBusy" striped hover :items="data" :fields="fields" :filter="filter" sticky-header>
           <template #cell(info)="data">
             <!-- <b-button name="more info" :to="data.item.pokemon_species.name" variant="primary">Info</b-button> -->
-            <b-button variant="primary" @click="setId(data.item.pokemon_species.name)">Info</b-button>
+            <b-button variant="primary" @click="setId(data.item.name)">Info</b-button>
           </template>
           <template #table-busy>
             <Loading />
@@ -32,17 +32,17 @@ export default {
   name: 'NuxtTutorial',
   data() {
     return {
-      data: {},
+      data: [],
       fields: [
         {
-          key: 'entry_number',
+          key: 'index',
           label: '#',
           sortable: true
         },
         {
-          key: 'pokemon_species.name',
+          key: 'name',
           label: 'Species name',
-          sortable: true
+            sortable: true
         },
         {
           key: 'Info',
@@ -57,13 +57,14 @@ export default {
   methods: {
     //Fetch API data if id in url then set to current item if not set first item to current item
     async getPokemon() {
-      let response = await this.$axios.$get('https://pokeapi.co/api/v2/pokedex/5')
-      this.data = response
-      this.$store.commit('update', response)
-      this.$route.query.pokemon == null ? this.currentItem = this.data.pokemon_entries[0].pokemon_species.name : this.currentItem = this.$route.query.pokemon
+      let response = await this.$axios.$get('https://pokeapi.co/api/v2/pokemon/?limit=1118')
+      console.log(response.results)
+      this.data = response.results
+      this.$route.query.pokemon == null ? this.currentItem = this.data[0].name : this.currentItem = this.$route.query.pokemon
       this.isBusy = !this.isBusy
     },
     setId(id) {
+      console.log(id)
       this.$router.push({ query: { pokemon: id } })
       this.currentItem = id
     },
@@ -102,17 +103,17 @@ export default {
       }
 
       .table {
-      max-height: 100%;
-      height: auto;
-      margin: 0;
+        max-height: 100%;
+        height: auto;
+        margin: 0;
 
-      tr {
-        text-transform: capitalize;
-        font-size: 1.3em;
+        tr {
+          text-transform: capitalize;
+          font-size: 1.3em;
 
-        button {
-          font-size: 1em;
-        }
+          button {
+            font-size: 1em;
+          }
         }
       }
     }

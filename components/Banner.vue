@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <h1 class="banner__title"><Pokeball />Sinnoh POKeDEX </h1>
+        <h1 class="banner__title"><Pokeball />POKeDEX</h1>
     </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss" scoped>
   .banner {
-    background-color: #6dbffb;
+    background-color: #f93f3f;
 
     .banner__title {
       font-size: 2.5em;
